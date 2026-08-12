@@ -6,7 +6,7 @@ const navItems = [
   ["La méthode", "/methode"],
   ["Les livrables", "/livrables"],
   ["Simuler le besoin", "/simulateur"],
-  ["À propos", "/a-propos"],
+  ["L’histoire de PAÏA", "/a-propos"],
 ];
 
 export function SiteHeader({ current = "" }: { current?: string }) {
@@ -74,7 +74,7 @@ export function SiteFooter() {
         </div>
         <div>
           <p className="footer-title">Échanger</p>
-          <Link href="/a-propos">À propos de Mathilde</Link>
+          <Link href="/a-propos">L’histoire de PAÏA</Link>
           <Link href="/contact">Contact et devis</Link>
         </div>
         <div>

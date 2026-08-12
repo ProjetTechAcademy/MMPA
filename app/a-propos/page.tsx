@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CtaBand, PageHero, SiteFooter, SiteHeader } from "../components/SiteChrome";
 
-export const metadata: Metadata = { title: "À propos de Mathilde" };
+export const metadata: Metadata = { title: "L’histoire de PAÏA" };
 
 const verbs = ["Comprendre", "Analyser", "Formaliser", "Sécuriser", "Transmettre"];
 const values = ["Rigueur", "Confidentialité", "Transparence", "Pédagogie", "Traçabilité", "Respect des responsabilités", "Résultat utile et mesurable"];
@@ -9,22 +9,23 @@ const values = ["Rigueur", "Confidentialité", "Transparence", "Pédagogie", "Tr
 export default function AboutPage() {
   return (
     <div className="site-shell">
-      <SiteHeader current="À propos" />
+      <SiteHeader current="L’histoire de PAÏA" />
       <main>
-        <PageHero eyebrow="À propos de Mathilde" title="Une expertise construite dans la pratique" intro="Une lecture simultanée des règles, des opérations, des données, des outils et de leurs conséquences sur la paie." />
+        <PageHero eyebrow="L’histoire de PAÏA" title="Une expertise métier devenue une méthode" intro="PAÏA réunit une lecture simultanée des règles, des opérations, des données, des outils et de leurs conséquences sur la paie." />
         <section className="about-story">
           <div className="about-year"><strong>2004</strong><span>Début du parcours métier</span></div>
           <div className="about-copy">
             <p>
-              Mathilde Martine PAISLEY accompagne les organisations sur des problématiques
-              de paie, d’administration du personnel, de droit social appliqué et de
-              systèmes d’information RH.
+              PAÏA est née d’une expérience de terrain en paie, administration du
+              personnel, droit social appliqué et systèmes d’information RH.
+              Sa méthode aide les organisations à rendre lisible ce qui est dispersé,
+              à rapprocher les données et à prioriser les actions utiles.
             </p>
             <p>
-              Elle a traité les absences maladie dans des environnements, des conventions
-              collectives et des organisations variés. Cette expérience lui permet
-              d’identifier les situations qui nécessitent une analyse individualisée,
-              au-delà d’une méthode théorique ou d’un contrôle automatisé.
+              PAÏA a été conçue par Mathilde Martine PAISLEY, professionnelle de la paie
+              et des systèmes RH depuis 2004. Son expérience des absences maladie dans
+              des environnements variés nourrit une approche concrète, individualisée
+              et transmissible.
             </p>
           </div>
         </section>
