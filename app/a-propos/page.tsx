@@ -35,7 +35,7 @@ export default function AboutPage() {
   return (
     <div className="site-shell">
       <SiteHeader current="À propos" />
-      <main>
+      <main className="about-page">
         <PageHero eyebrow="À propos de Mathilde" title="Une expertise construite dans la pratique" intro="Une lecture simultanée des règles, des opérations, des données, des outils et de leurs conséquences sur la paie." />
         <section className="about-story">
           <div className="about-year"><strong>2004</strong><span>Début du parcours métier</span></div>
