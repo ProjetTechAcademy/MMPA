@@ -94,12 +94,24 @@ export function SiteFooter() {
 export function CtaBand({ title, text, label, href }: { title: string; text: string; label: string; href: string }) {
   return (
     <section className="cta-band">
-      <div>
+      <div className="cta-copy">
         <p className="eyebrow eyebrow-gold">Premier échange</p>
         <h2>{title}</h2>
         <p>{text}</p>
+        <div className="cta-reassurance" aria-label="Déroulement du premier échange">
+          <span>Écoute du contexte</span>
+          <span>Périmètre clarifié</span>
+          <span>Prochaine étape claire</span>
+        </div>
       </div>
-      <Link className="button button-gold" href={href}>{label}</Link>
+      <div className="cta-action">
+        <span className="cta-orbit" aria-hidden="true" />
+        <Link className="cta-premium-button" href={href}>
+          <span>Commencer simplement</span>
+          <strong>{label}</strong>
+          <b aria-hidden="true">↗</b>
+        </Link>
+      </div>
     </section>
   );
 }
