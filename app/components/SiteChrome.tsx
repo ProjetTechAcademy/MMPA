@@ -6,7 +6,7 @@ const navItems = [
   ["La méthode", "/methode"],
   ["Les livrables", "/livrables"],
   ["Simuler le besoin", "/simulateur"],
-  ["L’histoire de PAÏA", "/a-propos"],
+  ["À propos", "/a-propos"],
 ];
 
 export function SiteHeader({ current = "" }: { current?: string }) {
@@ -74,7 +74,7 @@ export function SiteFooter() {
         </div>
         <div>
           <p className="footer-title">Échanger</p>
-          <Link href="/a-propos">L’histoire de PAÏA</Link>
+          <Link href="/a-propos">À propos de Mathilde</Link>
           <Link href="/contact">Contact et devis</Link>
         </div>
         <div>
@@ -114,8 +114,7 @@ export function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: st
       </div>
       <div className="page-hero-aside" aria-hidden="true">
         <span>PAÏA</span>
-        <i />
-        <small>Paie · Absences<br />Indemnisation · Analyse</small>
+        <small>Paie · Absences · Indemnisation · Analyse</small>
       </div>
     </section>
   );
