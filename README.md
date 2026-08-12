@@ -2,7 +2,9 @@
 
 Site vitrine de PAÏA by MMPA — Paie · Absences · Indemnisation · Analyse.
 
-Cette version est préparée pour GitHub et Vercel. Elle contient :
+Cette version complète est préparée pour le dépôt GitHub
+`ProjetTechAcademy/MMPA` et pour Vercel. Elle contient notamment le dossier
+`app`, indispensable au fonctionnement de Next.js :
 
 - la page d’accueil éditoriale ;
 - les pages Expertise, Méthode, Livrables et À propos ;
@@ -31,26 +33,33 @@ npm start
 
 ## Mise sur GitHub
 
-1. Créer un dépôt vide nommé `paia-by-mmpa`.
-2. Décompresser cette archive.
-3. Depuis le dossier décompressé :
+1. Décompresser cette archive sur l’ordinateur.
+2. Vérifier que les dossiers `app` et `public` sont visibles à côté de
+   `package.json`.
+3. Envoyer le contenu du dossier décompressé vers le dépôt
+   `ProjetTechAcademy/MMPA`. Ne pas envoyer seulement le fichier ZIP.
+4. Depuis le dossier décompressé, la méthode Terminal est :
 
 ```bash
 git init
 git add .
 git commit -m "Création du site PAÏA by MMPA"
 git branch -M main
-git remote add origin URL_DU_DEPOT_GITHUB
+git remote add origin https://github.com/ProjetTechAcademy/MMPA.git
 git push -u origin main
 ```
 
 ## Déploiement sur Vercel
 
 1. Dans Vercel, choisir **Add New > Project**.
-2. Importer le dépôt GitHub `paia-by-mmpa`.
+2. Importer le dépôt GitHub `ProjetTechAcademy/MMPA`.
 3. Laisser Vercel détecter **Next.js**.
-4. Ajouter la variable facultative `NEXT_PUBLIC_SITE_URL` avec l’adresse publique finale du site.
-5. Cliquer sur **Deploy**.
+4. Laisser le **répertoire racine** vide ou sur `./` : Vercel doit voir
+   `app` et `package.json` au même niveau.
+5. Aucune variable d’environnement n’est obligatoire pour le premier
+   déploiement. La variable facultative `NEXT_PUBLIC_SITE_URL` pourra être
+   ajoutée avec l’adresse publique finale du site.
+6. Cliquer sur **Deploy**.
 
 Les modifications poussées ensuite sur la branche `main` pourront déclencher automatiquement un nouveau déploiement Vercel.
 

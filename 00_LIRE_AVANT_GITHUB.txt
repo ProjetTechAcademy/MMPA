@@ -1,0 +1,27 @@
+PAÏA by MMPA — ARCHIVE COMPLÈTE POUR GITHUB ET VERCEL
+
+Avant l’envoi sur GitHub, décompressez cette archive.
+
+À la racine du dossier décompressé, vous devez voir ensemble :
+
+- app
+- public
+- package.json
+- package-lock.json
+- next.config.ts
+- tsconfig.json
+
+Le dossier app contient les pages du site. S’il n’est pas présent dans le
+dépôt GitHub, Vercel affiche l’erreur « Couldn't find any pages or app
+directory ».
+
+Important :
+
+1. N’envoyez pas uniquement le fichier ZIP dans GitHub.
+2. Envoyez tout le contenu décompressé, y compris les dossiers app et public.
+3. Dans Vercel, laissez le répertoire racine vide ou indiquez ./.
+4. Ne choisissez jamais app comme répertoire racine : Vercel doit trouver
+   app et package.json dans le même dossier parent.
+
+Le projet ne nécessite aucune variable d’environnement pour son premier
+déploiement.
