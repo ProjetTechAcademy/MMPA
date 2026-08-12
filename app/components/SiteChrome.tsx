@@ -20,9 +20,13 @@ export function SiteHeader({ current = "" }: { current?: string }) {
           />
         </Link>
         <div className="header-marquee" aria-label="Les piliers de l’intervention PAÏA">
-          <div>
-            <span>Comprendre</span><i>•</i><span>Rapprocher</span><i>•</i><span>Documenter</span><i>•</i><span>Prioriser</span><i>•</i><span>Transmettre</span><i>•</i>
-            <span aria-hidden="true">Comprendre</span><i aria-hidden="true">•</i><span aria-hidden="true">Rapprocher</span><i aria-hidden="true">•</i><span aria-hidden="true">Documenter</span><i aria-hidden="true">•</i><span aria-hidden="true">Prioriser</span><i aria-hidden="true">•</i><span aria-hidden="true">Transmettre</span><i aria-hidden="true">•</i>
+          <div className="header-marquee-track">
+            <div className="header-marquee-group">
+              <span>Comprendre</span><i>•</i><span>Rapprocher</span><i>•</i><span>Documenter</span><i>•</i><span>Prioriser</span><i>•</i><span>Transmettre</span><i>•</i>
+            </div>
+            <div className="header-marquee-group" aria-hidden="true">
+              <span>Comprendre</span><i>•</i><span>Rapprocher</span><i>•</i><span>Documenter</span><i>•</i><span>Prioriser</span><i>•</i><span>Transmettre</span><i>•</i>
+            </div>
           </div>
         </div>
       </div>
