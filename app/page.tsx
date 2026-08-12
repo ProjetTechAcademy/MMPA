@@ -75,20 +75,6 @@ export default function Home() {
           </div>
         </section>
 
-        <figure className="brand-banner-showcase">
-          <img
-            src="/brand/banner-paia.png"
-            alt="PAÏA by MMPA — Paie, Absences, Indemnisation, Analyse"
-          />
-        </figure>
-
-        <div className="editorial-marquee" aria-label="Les piliers de l’intervention PAÏA">
-          <div>
-            <span>Comprendre</span><i>•</i><span>Rapprocher</span><i>•</i><span>Documenter</span><i>•</i><span>Prioriser</span><i>•</i><span>Transmettre</span><i>•</i>
-            <span aria-hidden="true">Comprendre</span><i aria-hidden="true">•</i><span aria-hidden="true">Rapprocher</span><i aria-hidden="true">•</i><span aria-hidden="true">Documenter</span><i aria-hidden="true">•</i><span aria-hidden="true">Prioriser</span><i aria-hidden="true">•</i><span aria-hidden="true">Transmettre</span><i aria-hidden="true">•</i>
-          </div>
-        </div>
-
         <section className="section section-intro">
           <div className="section-heading split-heading">
             <div>

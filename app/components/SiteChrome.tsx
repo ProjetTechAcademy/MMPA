@@ -12,26 +12,40 @@ const navItems = [
 export function SiteHeader({ current = "" }: { current?: string }) {
   return (
     <header className="site-header">
-      <Link className="brand-link" href="/" aria-label="PAÏA by MMPA — Accueil">
-        <img src="/brand/logo-compact.png" alt="PAÏA by MMPA" />
-      </Link>
-      <nav className="desktop-nav" aria-label="Navigation principale">
-        {navItems.map(([label, href], index) => (
-          <Link className={current === label ? "active" : ""} href={href} key={href}>
-            <span>{String(index + 1).padStart(2, "0")}</span>{label}
-          </Link>
-        ))}
-      </nav>
-      <Link className="header-cta" href="/contact">
-        Premier échange <span aria-hidden="true">↗</span>
-      </Link>
-      <details className="mobile-nav">
-        <summary aria-label="Ouvrir le menu"><span /><span /><span /></summary>
-        <div className="mobile-nav-panel">
-          {navItems.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-          <Link className="button button-primary" href="/contact">Demander un premier échange</Link>
+      <div className="header-brand-row">
+        <Link className="brand-link" href="/" aria-label="PAÏA by MMPA — Accueil">
+          <img
+            src="/brand/banner-paia.png"
+            alt="PAÏA by MMPA — Paie, Absences, Indemnisation, Analyse"
+          />
+        </Link>
+        <div className="header-marquee" aria-label="Les piliers de l’intervention PAÏA">
+          <div>
+            <span>Comprendre</span><i>•</i><span>Rapprocher</span><i>•</i><span>Documenter</span><i>•</i><span>Prioriser</span><i>•</i><span>Transmettre</span><i>•</i>
+            <span aria-hidden="true">Comprendre</span><i aria-hidden="true">•</i><span aria-hidden="true">Rapprocher</span><i aria-hidden="true">•</i><span aria-hidden="true">Documenter</span><i aria-hidden="true">•</i><span aria-hidden="true">Prioriser</span><i aria-hidden="true">•</i><span aria-hidden="true">Transmettre</span><i aria-hidden="true">•</i>
+          </div>
         </div>
-      </details>
+      </div>
+
+      <div className="header-navigation-row">
+        <nav className="desktop-nav" aria-label="Navigation principale">
+          {navItems.map(([label, href], index) => (
+            <Link className={current === label ? "active" : ""} href={href} key={href}>
+              <span>{String(index + 1).padStart(2, "0")}</span>{label}
+            </Link>
+          ))}
+        </nav>
+        <Link className="header-cta" href="/contact">
+          Premier échange <span aria-hidden="true">↗</span>
+        </Link>
+        <details className="mobile-nav">
+          <summary aria-label="Ouvrir le menu"><span /><span /><span /></summary>
+          <div className="mobile-nav-panel">
+            {navItems.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+            <Link className="button button-primary" href="/contact">Demander un premier échange</Link>
+          </div>
+        </details>
+      </div>
     </header>
   );
 }
