@@ -14,7 +14,14 @@ const jetbrains = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
+const indexingEnabled = process.env.NEXT_PUBLIC_SITE_INDEXING === "enabled";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  || (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "PAÏA by MMPA — Traitement des Absences Maladie en Paie",
     template: "%s | PAÏA by MMPA",
@@ -38,6 +45,9 @@ export const metadata: Metadata = {
     icon: "/brand/favicon.png",
     apple: "/brand/apple-touch-icon.png",
   },
+  robots: indexingEnabled
+    ? { index: true, follow: true }
+    : { index: false, follow: false, nocache: true },
   other: { "codex-preview": "development" },
 };
 

@@ -80,6 +80,8 @@ export function SiteFooter() {
           <p className="footer-title">Informations</p>
           <Link href="/mentions-legales">Mentions légales</Link>
           <Link href="/confidentialite">Confidentialité</Link>
+          <Link href="/cookies">Cookies &amp; traceurs</Link>
+          <Link href="/securite">Sécurité</Link>
         </div>
       </div>
       <div className="footer-bottom">

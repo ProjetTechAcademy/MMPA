@@ -16,7 +16,9 @@ export default function ContactForm() {
       "a-qualifier": "Périmètre à qualifier",
       etendu: "Périmètre étendu",
     };
-    if (profile && labels[profile]) setSimulation(labels[profile]);
+    if (profile && labels[profile]) {
+      queueMicrotask(() => setSimulation(labels[profile]));
+    }
   }, []);
 
   function prepareRequest(event: FormEvent<HTMLFormElement>) {

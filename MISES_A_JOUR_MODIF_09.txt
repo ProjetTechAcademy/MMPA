@@ -1,0 +1,47 @@
+PAÏA by MMPA — MODIFICATION 09
+Sécurité, RGPD, cookies/pixels et préparation Odoo
+
+Cette version reprend intégralement la MODIFICATION 08 et ajoute :
+
+1. GIT ET SECRETS
+- `.gitignore` renforcé : fichiers `.env`, clés privées, certificats, exports SQL,
+  bases locales, sauvegardes et configuration Vercel locale exclus de Git.
+- `.env.example` reste volontairement versionné et ne contient aucun secret.
+- rappel : une variable `NEXT_PUBLIC_` est visible dans le navigateur.
+
+2. PROTECTIONS DU SITE
+- en-têtes CSP, HSTS, anti-iframe, anti-sniffing et limitation des permissions ;
+- en-tête technologique Next.js supprimé ;
+- indexation désactivée par défaut jusqu'au lancement ;
+- domaine public préparé avec `NEXT_PUBLIC_SITE_URL` pour les métadonnées sociales ;
+- canal standard de signalement `/.well-known/security.txt`.
+
+3. CONTRÔLES AUTOMATIQUES
+- commande `npm run security:check` pour repérer des secrets courants et fichiers sensibles ;
+- workflow GitHub à chaque push/PR et chaque semaine : contrôle, audit npm et build ;
+- Dependabot hebdomadaire pour les mises à jour de dépendances.
+- Next.js mis à jour de 16.2.6 à 16.3.0 ; audit des dépendances de production :
+  aucune vulnérabilité connue signalée au moment de la livraison.
+
+4. RGPD ET PIXELS
+- politique de confidentialité développée et adaptée au fonctionnement réel du formulaire ;
+- page « Cookies & traceurs » expliquant clairement les pixels ;
+- aucun pixel Meta, Google Ads ou traceur marketing activé ;
+- page publique « Sécurité » ajoutée au pied de page.
+
+5. ODOO
+- architecture recommandée documentée : conserver le site premium sur Vercel et
+  raccorder Odoo plus tard pour CRM, devis, factures, rendez-vous et portail client ;
+- aucune clé Odoo dans le navigateur ;
+- raccordement progressif selon le forfait Odoo choisi.
+
+6. GUIDE
+- lire `SECURITE_RGPD_ODOO.md` pour les réglages Vercel, la procédure d'incident,
+  la checklist RGPD et les étapes avant le 1er mars 2027.
+
+IMPORTANT
+- Aucun système ne peut être garanti inviolable.
+- Il n'existe actuellement aucune base de données de prospects à extraire.
+- Les alertes Vercel et règles Firewall nécessitent une activation dans le compte :
+  elles ne sont pas modifiées automatiquement par ce ZIP.
+- Avant chaque publication : `npm run security:check` puis `npm run build`.
