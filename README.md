@@ -42,9 +42,10 @@ npm start
    caché `.git`.
 4. Copier à la racine du dépôt tout le contenu de cette archive. Les dossiers
    `app` et `public` doivent être au même niveau que `package.json`.
-5. Vérifier dans GitHub Desktop que les anciens fichiers `vite.config.ts`,
-   `.openai`, `worker`, `build`, `db`, `drizzle` et les scripts Vinext sont
-   indiqués comme supprimés.
+5. Il est préférable de supprimer les anciens fichiers `vite.config.ts`,
+   `.openai`, `worker`, `build`, `db`, `drizzle`, `examples` et les scripts
+   Vinext. Toutefois, le `tsconfig.json` fourni ignore désormais ces anciens
+   fichiers : ils ne bloqueront plus Vercel si Finder les laisse en place.
 6. Valider (commit) puis publier (push) les modifications sur `main`.
 
 Ne pas déposer le fichier ZIP lui-même dans GitHub : il faut déposer son

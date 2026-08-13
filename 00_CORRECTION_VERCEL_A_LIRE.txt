@@ -13,9 +13,13 @@ CORRECTION APPLIQUÉE
 - suppression des dépendances de déploiement Vinext, Vite, Wrangler et
   Cloudflare ;
 - aucun fichier .openai/hosting.json n’est requis ;
+- le fichier tsconfig.json limite désormais la vérification TypeScript au site
+  Next.js : même si Finder laisse d’anciens dossiers Vinext dans le dépôt, ils
+  ne bloquent plus la compilation Vercel ;
 - conservation intégrale des pages, styles, interactions, logos et visuels
   officiels de la version 9/10 ;
-- compilation de production vérifiée avant création du ZIP.
+- compilation de production vérifiée une première fois sur le projet propre,
+  puis une seconde fois en présence des anciens fichiers résiduels.
 
 CE QU’IL FAUT FAIRE AVEC GITHUB DESKTOP
 ---------------------------------------
@@ -24,8 +28,9 @@ CE QU’IL FAUT FAIRE AVEC GITHUB DESKTOP
 3. Remplacer l’ancien contenu du dépôt par TOUT le contenu du dossier
    décompressé. Ne pas déposer le ZIP lui-même dans GitHub.
 4. Les dossiers app et public doivent être visibles à côté de package.json.
-5. Dans GitHub Desktop, vérifier que vite.config.ts et les anciens dossiers
-   .openai, worker, build, db et drizzle sont bien supprimés.
+5. Il est préférable de supprimer vite.config.ts et les anciens dossiers
+   .openai, worker, build, db, drizzle et examples, mais cette version compile
+   aussi s’ils sont encore présents.
 6. Commit : « Correction du build Next.js pour Vercel ».
 7. Push origin.
 
