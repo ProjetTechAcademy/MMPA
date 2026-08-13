@@ -1,0 +1,28 @@
+PAÏA by MMPA — MISE À JOUR LISIBILITÉ À 100 %
+================================================
+
+Cette version rééquilibre l’échelle typographique sans modifier les logos,
+les contenus ni l’identité visuelle officielle.
+
+PRINCIPALES CORRECTIONS
+-----------------------
+- boutons principaux portés à 16 px minimum et 56 px de hauteur ;
+- boutons bleu profond, ivoire/or et or métallique mieux différenciés ;
+- navigation et liens du pied de page agrandis ;
+- petits libellés, numéros, pastilles et textes secondaires renforcés ;
+- cartes de l’accueil rendues lisibles sans zoom à 125 % ;
+- chaîne Absence / Paie & GTA / DSN / IJSS / Prévoyance / Suivi agrandie ;
+- formulaire, simulateur, contact et encadrés informatifs harmonisés ;
+- adaptation mobile conservée avec des cibles tactiles confortables.
+
+INSTALLATION AVEC GITHUB DESKTOP
+--------------------------------
+1. Décompresser le ZIP.
+2. Copier tout son contenu dans le dossier local du dépôt MMPA.
+3. Accepter « Remplacer » pour les fichiers déjà présents.
+4. Vérifier que app/globals.css et tsconfig.json sont indiqués comme modifiés.
+5. Commit conseillé : « Amélioration de la lisibilité à 100 % ».
+6. Cliquer sur Push origin.
+
+Le tsconfig.json continue d’ignorer les anciens fichiers Vinext/Cloudflare
+éventuellement restés dans le dépôt : ils ne bloquent pas la compilation.
