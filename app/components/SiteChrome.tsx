@@ -3,10 +3,9 @@ import Link from "next/link";
 const navItems = [
   ["Accueil", "/"],
   ["L’expertise PAÏA", "/expertise"],
-  ["La méthode", "/methode"],
-  ["Les livrables", "/livrables"],
-  ["Simuler le besoin", "/simulateur"],
+  ["Méthode & livrables", "/methode"],
   ["À propos", "/a-propos"],
+  ["Contact", "/contact"],
 ];
 
 export function SiteHeader({ current = "" }: { current?: string }) {
@@ -40,13 +39,13 @@ export function SiteHeader({ current = "" }: { current?: string }) {
           ))}
         </nav>
         <Link className="header-cta" href="/contact">
-          Premier échange <span aria-hidden="true">↗</span>
+          Prendre rendez-vous <span aria-hidden="true">↗</span>
         </Link>
         <details className="mobile-nav">
           <summary aria-label="Ouvrir le menu"><span /><span /><span /></summary>
           <div className="mobile-nav-panel">
             {navItems.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-            <Link className="button button-primary" href="/contact">Demander un premier échange</Link>
+            <Link className="button button-primary" href="/contact">Prendre rendez-vous</Link>
           </div>
         </details>
       </div>
@@ -68,14 +67,14 @@ export function SiteFooter() {
         <div>
           <p className="footer-title">Découvrir</p>
           <Link href="/expertise">L’expertise PAÏA</Link>
-          <Link href="/methode">La méthode</Link>
+          <Link href="/methode">Méthode &amp; livrables</Link>
           <Link href="/livrables">Les livrables</Link>
           <Link href="/simulateur">Simuler votre besoin</Link>
         </div>
         <div>
           <p className="footer-title">Échanger</p>
-          <Link href="/a-propos">À propos de Mathilde</Link>
-          <Link href="/contact">Contact et devis</Link>
+          <Link href="/a-propos">À propos de PAÏA</Link>
+          <Link href="/contact">Contact</Link>
         </div>
         <div>
           <p className="footer-title">Informations</p>

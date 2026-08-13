@@ -6,7 +6,7 @@ const consequences = [
   ["Subrogation", "Suivi des avances employeur et des remboursements attendus."],
   ["IJSS", "Rapprochement des décomptes, encaissements et montants portés en paie."],
   ["Prévoyance", "Lecture des mécanismes d’indemnisation et des versements associés."],
-  ["DSN & attestations", "Cohérence des événements déclarés et des attestations de salaire."],
+  ["DSN événementielle", "Cohérence des signalements d’arrêt maladie et des attestations de salaire."],
   ["Régularisations", "Identification des écarts à expliquer, documenter et prioriser."],
   ["Congés payés", "Contrôle de l’acquisition, du report et de l’alimentation des compteurs."],
   ["Information salarié", "Traçabilité des explications et des éléments transmis après la reprise."],
@@ -74,6 +74,20 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <figure className="brand-banner-showcase">
+          <img
+            src="/brand/banner-paia.png"
+            alt="PAÏA by MMPA — Paie, Absences, Indemnisation, Analyse"
+          />
+        </figure>
+
+        <div className="editorial-marquee" aria-label="Les piliers de l’intervention PAÏA">
+          <div>
+            <span>Comprendre</span><i>•</i><span>Rapprocher</span><i>•</i><span>Documenter</span><i>•</i><span>Prioriser</span><i>•</i><span>Transmettre</span><i>•</i>
+            <span aria-hidden="true">Comprendre</span><i aria-hidden="true">•</i><span aria-hidden="true">Rapprocher</span><i aria-hidden="true">•</i><span aria-hidden="true">Documenter</span><i aria-hidden="true">•</i><span aria-hidden="true">Prioriser</span><i aria-hidden="true">•</i><span aria-hidden="true">Transmettre</span><i aria-hidden="true">•</i>
+          </div>
+        </div>
 
         <section className="section section-intro">
           <div className="section-heading split-heading">

@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Simuler votre besoin" };
 export default function SimulatorPage() {
   return (
     <div className="site-shell">
-      <SiteHeader current="Simuler le besoin" />
+      <SiteHeader />
       <main>
         <PageHero
           eyebrow="Simulateur de cadrage"

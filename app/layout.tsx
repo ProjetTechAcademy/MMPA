@@ -15,9 +15,6 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://paia-by-mmpa.vercel.app"
-  ),
   title: {
     default: "PAÏA by MMPA — Traitement des Absences Maladie en Paie",
     template: "%s | PAÏA by MMPA",

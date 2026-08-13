@@ -19,7 +19,7 @@ const events = [
 
 const controls = [
   "Cohérence entre les arrêts reçus et les absences enregistrées",
-  "Rapprochement entre paie, GTA, déclarations, décomptes d’IJSS et encaissements",
+  "Rapprochement entre paie, GTA, DSN événementielle liée aux arrêts maladie, décomptes d’IJSS et encaissements",
   "Contrôle du maintien de salaire et de la subrogation",
   "Identification des remboursements manquants ou incomplets",
   "Contrôle des régularisations et des mécanismes de prévoyance",
@@ -37,7 +37,7 @@ export default function ExpertisePage() {
         <PageHero
           eyebrow="L’expertise PAÏA"
           title="Analyser le traitement complet de l’absence"
-          intro="Une lecture métier qui relie l’événement, les règles applicables, les données, les déclarations, les remboursements et leurs conséquences en paie."
+          intro="Une lecture métier qui relie l’événement, les règles applicables, les données, la DSN événementielle liée aux arrêts maladie, les remboursements et leurs conséquences en paie."
         />
         <section className="content-section">
           <div className="content-intro">
@@ -79,6 +79,23 @@ export default function ExpertisePage() {
             de vérifier l’historique individuel et d’effectuer les corrections dans leurs
             propres outils.
           </p>
+        </section>
+        <section className="content-section adjacent-expertise">
+          <div className="content-intro">
+            <p className="eyebrow">Besoins connexes</p>
+            <h2>Un pont possible vers les autres sujets de paie</h2>
+            <p>
+              PAÏA reste centrée sur les absences maladie. Un besoin connexe en paie,
+              administration du personnel, droit social appliqué ou SIRH fonctionnel
+              peut être évoqué au premier échange, puis qualifié séparément.
+            </p>
+          </div>
+          <div className="adjacent-expertise-list">
+            <span>Paie</span>
+            <span>Administration du personnel</span>
+            <span>Droit social appliqué</span>
+            <span>SIRH fonctionnel</span>
+          </div>
         </section>
         <CtaBand title="Un écart d’IJSS, de subrogation ou de maintien vous interroge ?" text="Un premier échange permet de qualifier le périmètre et les données nécessaires." label="Parler de votre situation" href="/contact" />
       </main>

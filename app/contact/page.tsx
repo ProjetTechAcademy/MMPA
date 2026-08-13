@@ -7,9 +7,24 @@ export const metadata: Metadata = { title: "Contact et demande de devis" };
 export default function ContactPage() {
   return (
     <div className="site-shell contact-page">
-      <SiteHeader />
+      <SiteHeader current="Contact" />
       <main>
         <PageHero eyebrow="Contact et prise de rendez-vous" title="Commençons par votre contexte" intro="Quelques renseignements essentiels permettent de qualifier la demande avant de choisir un créneau de 45 minutes." />
+        <section className="contact-business-card" aria-label="Coordonnées de PAÏA by MMPA">
+          <div className="contact-business-logo">
+            <img src="/brand/logo-compact.png" alt="PAÏA by MMPA" />
+          </div>
+          <div className="contact-business-copy">
+            <p className="eyebrow">Contact</p>
+            <h2>Un point d’entrée unique pour votre demande.</h2>
+            <p>Traitement des Absences Maladie en Paie</p>
+            <a href="mailto:mathilde.martine.paisley@gmail.com">mathilde.martine.paisley@gmail.com</a>
+          </div>
+          <div className="contact-business-actions">
+            <a className="button button-primary" href="mailto:mathilde.martine.paisley@gmail.com">Écrire à PAÏA</a>
+            <a className="button button-secondary" href="/simulateur">Simuler le besoin</a>
+          </div>
+        </section>
         <section className="contact-introduction" aria-label="Déroulement du premier échange">
           <div>
             <p className="eyebrow">Premier échange</p>

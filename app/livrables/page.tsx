@@ -13,7 +13,7 @@ function DeliverableCard({ number, title, intro, items }: { number: string; titl
 export default function LivrablesPage() {
   return (
     <div className="site-shell">
-      <SiteHeader current="Les livrables" />
+      <SiteHeader current="Méthode & livrables" />
       <main>
         <PageHero eyebrow="Les livrables" title="Des constats exploitables et une trajectoire d’action" intro="Chaque document est construit pour l’entité cliente, son périmètre, ses outils et ses responsabilités. Il ne s’agit pas de simples modèles génériques." />
         <section className="content-section deliverable-grid">
