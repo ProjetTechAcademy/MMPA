@@ -13,10 +13,13 @@ export function SiteHeader({ current = "" }: { current?: string }) {
     <header className="site-header">
       <div className="header-brand-row">
         <Link className="brand-link" href="/" aria-label="PAÏA by MMPA — Accueil">
-          <img
-            src="/brand/banner-paia.png"
-            alt="PAÏA by MMPA — Paie, Absences, Indemnisation, Analyse"
-          />
+          <picture>
+            <source media="(max-width: 640px)" srcSet="/brand/logo-compact.png" />
+            <img
+              src="/brand/banner-paia.png"
+              alt="PAÏA by MMPA — Paie, Absences, Indemnisation, Analyse"
+            />
+          </picture>
         </Link>
         <div className="header-marquee" aria-label="Les piliers de l’intervention PAÏA">
           <div className="header-marquee-track">
@@ -39,13 +42,13 @@ export function SiteHeader({ current = "" }: { current?: string }) {
           ))}
         </nav>
         <Link className="header-cta" href="/contact">
-          Prendre rendez-vous <span aria-hidden="true">↗</span>
+          Premier échange <span aria-hidden="true">↗</span>
         </Link>
         <details className="mobile-nav">
           <summary aria-label="Ouvrir le menu"><span /><span /><span /></summary>
           <div className="mobile-nav-panel">
             {navItems.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-            <Link className="button button-primary" href="/contact">Prendre rendez-vous</Link>
+            <Link className="button button-primary" href="/contact">Premier échange</Link>
           </div>
         </details>
       </div>

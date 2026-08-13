@@ -74,9 +74,6 @@ export default function AboutPage() {
             ))}
           </div>
         </section>
-        <div className="about-banner">
-          <img src="/brand/banner-paia.png" alt="PAÏA, Paie, Absences, Indemnisation, Analyse, by MMPA" />
-        </div>
         <CtaBand
           title="Parlons de votre contexte"
           text="Le premier échange vise à comprendre votre situation, sans présumer du périmètre de la mission."
