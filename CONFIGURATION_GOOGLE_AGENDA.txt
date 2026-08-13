@@ -1,0 +1,38 @@
+PAÏA BY MMPA — CONFIGURATION DE LA PRISE DE RENDEZ-VOUS
+
+Compte Google Agenda actuellement relié :
+mathilde.martine.paisley@gmail.com
+
+Réglages à créer dans Google Agenda > Créer > Planning de rendez-vous :
+
+- Titre : Premier échange — PAÏA by MMPA
+- Durée : 45 minutes
+- Temps de battement : 15 minutes
+- Fuseau horaire : Europe/Paris
+- Date de début : 1er mars 2027
+- Disponibilités : 08h00–12h00 et 14h00–17h00
+- Lieu : Google Meet ou téléphone
+- Vérification de l’adresse électronique : activée
+
+Champs obligatoires du formulaire Google :
+
+- Prénom et nom
+- Adresse électronique
+- Numéro de téléphone
+- Nom de l’entité
+- Forme juridique
+- Numéro SIREN (9 chiffres)
+- Objet de la demande
+
+Champ complémentaire :
+
+- SIRET (14 chiffres), uniquement si la demande concerne un établissement précis
+
+Après enregistrement :
+
+1. Copier le lien de la page de réservation Google.
+2. Dans le fichier .env.local du projet, ajouter :
+   NEXT_PUBLIC_GOOGLE_BOOKING_URL=COLLER_LE_LIEN_ICI
+3. Relancer le site puis publier la mise à jour.
+
+Le bouton « Choisir mon créneau de 45 minutes » apparaîtra automatiquement.
