@@ -1,64 +1,10 @@
 import Link from "next/link";
 import { CtaBand, SiteFooter, SiteHeader } from "./components/SiteChrome";
 
-const experienceMarkers = [
-  ["Depuis 2004", "une expertise exercée en Paie, ADP, droit social appliqué et SIRH"],
-  ["250 à 1 200", "salariés sur les périmètres de paie et d’administration du personnel pratiqués"],
-  ["Jusqu’à 30 sites", "des pratiques recueillies, rapprochées et formalisées dans des environnements multisites"],
-  ["Paie · GTA · SIRH", "une lecture fonctionnelle des règles, des données, des outils et des usages"],
-];
-
-const businessSituations = [
-  {
-    number: "01",
-    title: "Déclarer l’événement",
-    text: "Relier l’arrêt reçu, l’absence saisie, la GTA et la DSN événementielle liée à l’arrêt maladie.",
-    tags: ["Arrêt", "GTA", "DSN événementielle"],
-  },
-  {
-    number: "02",
-    title: "Indemniser correctement",
-    text: "Mettre en regard le maintien de salaire, la subrogation, les IJSS et les mécanismes de prévoyance.",
-    tags: ["Maintien", "IJSS", "Prévoyance"],
-  },
-  {
-    number: "03",
-    title: "Expliquer les écarts",
-    text: "Identifier les remboursements manquants, les montants restant à traiter et les régularisations à documenter.",
-    tags: ["Rapprochement", "Écarts", "Trésorerie"],
-  },
-  {
-    number: "04",
-    title: "Organiser la suite",
-    text: "Prioriser les actions, sécuriser la traçabilité et transmettre un cadre réellement exploitable par les équipes.",
-    tags: ["Plan d’action", "Suivi", "Transmission"],
-  },
-];
-
-const outcomes = [
-  {
-    number: "01",
-    title: "Une situation lisible",
-    text: "Les sources disponibles, les limites et les écarts sont rapprochés dans une lecture commune.",
-  },
-  {
-    number: "02",
-    title: "Des priorités posées",
-    text: "Les actions nécessaires sont ordonnées selon leurs effets, leurs dépendances et les responsabilités.",
-  },
-  {
-    number: "03",
-    title: "Une trace transmissible",
-    text: "Les constats, preuves attendues et méthodes de suivi sont formalisés pour permettre une reprise autonome.",
-  },
-];
-
-const method = [
-  ["01", "Qualifier", "Comprendre le contexte, l’entité et le résultat attendu."],
-  ["02", "Cadrer", "Définir les sources disponibles, les limites et les responsabilités."],
-  ["03", "Rapprocher", "Mettre en regard les règles, les données et les traitements."],
-  ["04", "Prioriser", "Distinguer les écarts, leurs effets et les actions à mener."],
-  ["05", "Transmettre", "Restituer une méthode et des supports propres à l’entité."],
+const services = [
+  { acronym: "TAMP", title: "Traitement des absences maladie en paie", text: "Analyser les absences, les IJSS, le maintien de salaire, la subrogation et les données associées pour rendre les écarts lisibles.", tone: "navy" },
+  { acronym: "PDP", title: "Production de paie", text: "Prendre en charge un besoin de production de paie, ponctuel ou récurrent, selon votre organisation, votre calendrier et vos outils.", tone: "gold" },
+  { acronym: "TADP", title: "Traitement de l’administration du personnel", text: "Traiter les opérations d’administration du personnel selon le périmètre, la période et les priorités définis ensemble.", tone: "violet" },
 ];
 
 export default function Home() {
@@ -66,161 +12,54 @@ export default function Home() {
     <div className="site-shell">
       <SiteHeader current="Accueil" />
       <main>
-        <section className="hero home-hero home-hero-refined">
-          <div className="hero-copy">
-            <p className="eyebrow hero-eyebrow">
-              <span>Expertise de terrain depuis 2004</span>
-              Traitement des Absences Maladie en Paie
-            </p>
-            <h1 className="kinetic-title">
-              <span><i>Sécuriser le traitement</i></span>
-              <span><i>des absences maladie</i></span>
-              <span><i>en paie</i></span>
-            </h1>
-            <p className="hero-lead">
-              PAÏA by MMPA rapproche les pratiques, les données et les flux
-              d’indemnisation pour rendre les écarts lisibles et les actions
-              réellement pilotables.
-            </p>
+        <section className="offer-hero">
+          <div className="offer-hero-copy">
+            <p className="eyebrow">Paie · Absences · Indemnisation · Analyse</p>
+            <h1>Votre besoin est précis.<br /><em>Notre réponse aussi.</em></h1>
+            <p className="offer-lead">PAÏA by MMPA intervient sur trois services clairement définis et s’adapte au contexte réel de votre organisation.</p>
             <div className="button-row">
-              <Link className="button button-primary" href="/contact">
-                Demander un premier échange <span aria-hidden="true">↗</span>
-              </Link>
-              <Link className="button button-secondary" href="/simulateur">
-                Situer votre besoin <span aria-hidden="true">→</span>
-              </Link>
+              <Link className="button button-primary" href="/simulateur">Estimer mon besoin <span aria-hidden="true">↗</span></Link>
+              <Link className="button button-secondary" href="/contact">Décrire mon projet <span aria-hidden="true">→</span></Link>
             </div>
-            <p className="hero-proof">
-              Une approche spécialisée, fondée sur une pratique réelle de la paie,
-              de l’administration du personnel, du droit social appliqué et des
-              systèmes d’information RH.
-            </p>
           </div>
-
-          <div className="hero-visual hero-data-card" aria-label="Chaîne de rapprochement PAÏA">
-            <div className="data-card-heading">
-              <p className="eyebrow">De l’arrêt au suivi</p>
-              <h2>Une absence.<br />Toutes les données à réconcilier.</h2>
-              <p>
-                Pour faire apparaître les écarts, mesurer leurs effets et remettre
-                les actions dans le bon ordre.
-              </p>
-            </div>
-            <div className="flow-card">
-              <div className="flow-sequence" aria-label="Absence, Paie et GTA, DSN événementielle, IJSS, Prévoyance, Suivi">
-                <span>Absence</span>
-                <span>Paie &amp; GTA</span>
-                <span>DSN évén.</span>
-                <span>IJSS</span>
-                <span>Prévoyance</span>
-                <span>Suivi</span>
-              </div>
-              <p className="flow-caption">Comprendre · rapprocher · documenter · prioriser · transmettre</p>
-            </div>
+          <div className="offer-hero-brand">
+            <img src="/brand/logo-principal.png" alt="PAÏA by MMPA — Paie, Absences, Indemnisation, Analyse" />
+            <p>Une expertise métier de terrain depuis 2004.</p>
           </div>
         </section>
 
-        <section className="experience-proof" aria-label="Repères de l’expérience professionnelle">
-          <div className="experience-proof-heading">
-            <p className="eyebrow">L’expérience derrière la méthode</p>
-            <p>Des repères issus du parcours professionnel qui fonde PAÏA.</p>
+        <section className="services-section" id="services">
+          <div className="services-heading">
+            <div><p className="eyebrow">Nos services</p><h2>Trois réponses.<br />Un même niveau d’exigence.</h2></div>
+            <p>Sélectionnez le service qui correspond à votre besoin. Si votre projet sort de ces trois périmètres, décrivez-le librement dans le formulaire.</p>
           </div>
-          <div className="experience-proof-grid">
-            {experienceMarkers.map(([value, label]) => (
-              <article key={value}>
-                <strong>{value}</strong>
-                <p>{label}</p>
+          <div className="service-card-grid">
+            {services.map((service, index) => (
+              <article className={`service-card service-card-${service.tone}`} key={service.acronym}>
+                <span className="service-number">0{index + 1}</span>
+                <strong className="service-acronym">{service.acronym}</strong>
+                <h3>{service.title}</h3>
+                <p>{service.text}</p>
+                <Link href={`/contact?service=${service.acronym}`}>Présenter ce besoin <span aria-hidden="true">↗</span></Link>
               </article>
             ))}
           </div>
-        </section>
-
-        <section className="section section-intro home-situations">
-          <div className="section-heading split-heading">
-            <div>
-              <p className="eyebrow">Un sujet transversal</p>
-              <h2>Une seule absence peut traverser plusieurs outils, acteurs et temporalités.</h2>
-            </div>
-            <div className="section-side-copy">
-              <p>
-                L’enjeu n’est pas de regarder chaque donnée séparément, mais de
-                comprendre ce qu’elles racontent ensemble.
-              </p>
-              <Link className="text-link" href="/expertise">
-                Voir le périmètre d’expertise <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-          </div>
-          <div className="business-situation-grid">
-            {businessSituations.map((situation) => (
-              <article className="business-situation-card" key={situation.number}>
-                <span className="card-index">{situation.number}</span>
-                <h3>{situation.title}</h3>
-                <p>{situation.text}</p>
-                <div>{situation.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-              </article>
-            ))}
+          <div className="other-need">
+            <div><span>Votre besoin est différent ?</span><strong>Migration, recette, changement d’outil ou autre projet : expliquez-nous votre contexte.</strong></div>
+            <Link className="button button-secondary" href="/contact?service=AUTRE">Décrire un autre besoin</Link>
           </div>
         </section>
 
-        <section className="section section-dark home-outcomes">
-          <div className="section-heading split-heading">
-            <div>
-              <p className="eyebrow eyebrow-gold">À l’issue de l’intervention</p>
-              <h2>Des constats exploitables, pas une analyse laissée dans un dossier.</h2>
-            </div>
-            <p>
-              PAÏA identifie, documente et priorise. Les équipes clientes conservent
-              la maîtrise de leurs outils et la responsabilité des corrections.
-            </p>
-          </div>
-          <div className="outcome-grid">
-            {outcomes.map((outcome) => (
-              <article key={outcome.number}>
-                <span>{outcome.number}</span>
-                <h3>{outcome.title}</h3>
-                <p>{outcome.text}</p>
-              </article>
-            ))}
-          </div>
-          <div className="outcome-actions">
-            <Link className="text-link text-link-light" href="/livrables">
-              Découvrir les livrables <span aria-hidden="true">→</span>
-            </Link>
-            <Link className="button button-gold" href="/simulateur">
-              Situer votre besoin <span aria-hidden="true">↗</span>
-            </Link>
-          </div>
-        </section>
-
-        <section className="section method-preview home-method">
-          <div className="section-heading centered-heading">
-            <p className="eyebrow">Une méthode lisible</p>
-            <h2>Du contexte à une reprise autonome</h2>
-            <p>Cinq étapes, un périmètre défini et des responsabilités clairement posées.</p>
-          </div>
-          <ol className="home-method-grid">
-            {method.map(([number, title, text]) => (
-              <li key={number}>
-                <span>{number}</span>
-                <strong>{title}</strong>
-                <p>{text}</p>
-              </li>
-            ))}
+        <section className="fast-path-section">
+          <div className="fast-path-copy"><p className="eyebrow eyebrow-gold">Un parcours sans détour</p><h2>Vous êtes pressé.<br />Allons à l’essentiel.</h2><p>Quelques informations structurées nous permettent de comprendre votre contexte et de revenir vers vous avec une réponse utile.</p></div>
+          <ol className="fast-path-steps">
+            <li><span>01</span><div><strong>Choisissez</strong><p>TAMP, PDP, TADP ou un autre besoin.</p></div></li>
+            <li><span>02</span><div><strong>Précisez</strong><p>Effectif, organisation, outils, période et résultat attendu.</p></div></li>
+            <li><span>03</span><div><strong>Échangeons</strong><p>Nous confirmons la faisabilité et la suite la plus adaptée.</p></div></li>
           </ol>
-          <div className="centered-action">
-            <Link className="button button-secondary" href="/methode">
-              Découvrir la méthode complète <span aria-hidden="true">→</span>
-            </Link>
-          </div>
         </section>
 
-        <CtaBand
-          title="Commençons par comprendre votre situation."
-          text="Le premier échange permet de qualifier votre contexte, les données disponibles et le résultat attendu, sans présumer du périmètre de la mission."
-          label="Demander un premier échange"
-          href="/contact"
-        />
+        <CtaBand title="Quel besoin souhaitez-vous nous confier ?" text="Décrivez votre contexte en quelques minutes. Aucun document ni donnée concernant un salarié ne doit être transmis." label="Commencer ma demande" href="/contact" />
       </main>
       <SiteFooter />
     </div>

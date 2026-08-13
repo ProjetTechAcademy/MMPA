@@ -1,0 +1,22 @@
+MISE À JOUR — OFFRES TAMP, PDP ET TADP
+
+Cette version restructure le site autour de trois services placés au même niveau :
+
+- TAMP — Traitement des absences maladie en paie
+- PDP — Production de paie
+- TADP — Traitement de l’administration du personnel
+
+Principales évolutions :
+
+- nouvel accueil centré sur les services réellement proposés ;
+- acronymes toujours accompagnés de leur définition complète ;
+- suppression des offres non demandées ;
+- possibilité de décrire librement un autre besoin ;
+- simulateur réorganisé par service, effectif, organisation, outils et durée ;
+- formulaire de qualification beaucoup plus complet ;
+- champs dédiés aux outils de paie, GTA, ADP/SIRH, recrutement, formation et comptabilité ;
+- aucune promesse de devis automatique : le résultat reste une première estimation ;
+- interface plus arrondie, premium et lisible à 100 % ;
+- logos officiels conservés sans modification.
+
+Le projet a été contrôlé avec la commande de production Next.js.

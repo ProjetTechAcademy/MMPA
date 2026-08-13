@@ -7,18 +7,18 @@ export const metadata: Metadata = { title: "Simuler votre besoin" };
 export default function SimulatorPage() {
   return (
     <div className="site-shell">
-      <SiteHeader />
+      <SiteHeader current="Simuler le besoin" />
       <main>
         <PageHero
-          eyebrow="Simulateur de cadrage"
-          title="Situer votre besoin avant le premier échange"
-          intro="Quelques informations générales permettent d’identifier les principaux facteurs de complexité, sans transmettre aucune donnée relative à un salarié."
+          eyebrow="Première estimation"
+          title="Situez rapidement votre besoin"
+          intro="Choisissez TAMP, PDP, TADP ou un autre projet, puis renseignez quelques paramètres. Vous saurez immédiatement quel niveau de cadrage prévoir."
         />
         <section className="content-section simulator-section">
           <div className="content-intro">
-            <p className="eyebrow">Une première lecture indicative</p>
-            <h2>Évaluer le périmètre, pas afficher un prix automatique</h2>
-            <p>Une mission PAÏA ne se résume pas à un effectif. Les entités, les règles, les outils, l’historique et la qualité des données doivent être examinés ensemble.</p>
+            <p className="eyebrow">Rapide et sans tarif affiché</p>
+            <h2>Une première estimation avant l’échange</h2>
+            <p>L’effectif seul ne suffit pas. Le service, la durée, le rythme, les entités et les outils permettent de mieux situer votre demande.</p>
           </div>
           <Simulator />
         </section>

@@ -2,53 +2,48 @@
 
 import { FormEvent, useEffect, useState } from "react";
 
+const services: Record<string, string> = {
+  TAMP: "TAMP — Traitement des absences maladie en paie",
+  PDP: "PDP — Production de paie",
+  TADP: "TADP — Traitement de l’administration du personnel",
+  AUTRE: "Autre besoin",
+};
+
 export default function ContactForm() {
   const [summary, setSummary] = useState("");
   const [copied, setCopied] = useState(false);
-  const [simulation, setSimulation] = useState("");
-  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "mathilde.martine.paisley@gmail.com";
-  const bookingUrl = process.env.NEXT_PUBLIC_GOOGLE_BOOKING_URL || "";
+  const [service, setService] = useState("");
 
   useEffect(() => {
-    const profile = new URLSearchParams(window.location.search).get("simulation");
-    const labels: Record<string, string> = {
-      cible: "Périmètre ciblé",
-      "a-qualifier": "Périmètre à qualifier",
-      etendu: "Périmètre étendu",
-    };
-    if (profile && labels[profile]) {
-      queueMicrotask(() => setSimulation(labels[profile]));
-    }
+    const selected = new URLSearchParams(window.location.search).get("service") || "";
+    if (services[selected]) setService(selected);
   }, []);
 
   function prepareRequest(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const toolCategories = ["paie", "gta", "adp", "recrutement", "formation", "comptabilite"];
     const lines = [
-      "DEMANDE DE PREMIER ÉCHANGE — PAÏA BY MMPA",
-      "",
-      `Nom et prénom : ${data.get("name") || ""}`,
-      `Nom de l’entité : ${data.get("company") || ""}`,
-      `Forme juridique : ${data.get("legalForm") || ""}`,
-      `SIREN : ${data.get("siren") || ""}`,
-      `SIRET de l’établissement : ${data.get("siret") || "Non concerné"}`,
+      "DEMANDE DE CONTACT — PAÏA BY MMPA", "",
+      `Service : ${services[String(data.get("service"))] || "Autre besoin"}`,
+      `Entreprise : ${data.get("company") || ""}`,
+      `SIREN / SIRET : ${data.get("identifier") || ""}`,
+      `Contact : ${data.get("name") || ""}`,
       `Fonction : ${data.get("role") || ""}`,
-      `Adresse électronique : ${data.get("email") || ""}`,
+      `E-mail : ${data.get("email") || ""}`,
       `Téléphone : ${data.get("phone") || ""}`,
-      `Effectif approximatif : ${data.get("size") || ""}`,
-      `Nombre d’entités : ${data.get("entities") || ""}`,
-      `Outils de paie et GTA : ${data.get("tools") || ""}`,
-      `Période concernée : ${data.get("period") || ""}`,
-      `Accompagnement recherché : ${data.get("support") || ""}`,
-      `Objet de la demande : ${data.get("requestType") || ""}`,
+      `Effectif : ${data.get("size") || ""}`,
+      `Entités juridiques : ${data.get("entities") || ""}`,
+      `Période / durée : ${data.get("period") || ""}`, "",
+      "OUTILS CONCERNÉS",
+      ...toolCategories.map(key => `${key.toUpperCase()} : ${data.get(key) || "Non renseigné"}`),
+      `Autres outils : ${data.get("otherTools") || "Non renseigné"}`, "",
+      "PROJET ET RÉSULTAT ATTENDU", String(data.get("project") || ""), "",
       `Disponibilité souhaitée : ${data.get("availability") || ""}`,
-      `Résultat de la simulation : ${simulation || "Non réalisée"}`,
-      "",
-      "Problématique :",
-      String(data.get("problem") || ""),
     ];
     setSummary(lines.join("\n"));
     setCopied(false);
+    requestAnimationFrame(() => document.getElementById("request-summary")?.scrollIntoView({ behavior: "smooth", block: "start" }));
   }
 
   async function copySummary() {
@@ -56,45 +51,30 @@ export default function ContactForm() {
     setCopied(true);
   }
 
-  const mailHref = summary
-    ? `mailto:${contactEmail}?subject=${encodeURIComponent("Demande de premier échange — PAÏA by MMPA")}&body=${encodeURIComponent(summary)}`
-    : "";
-
-  return (
-    <>
-      {simulation && <div className="simulation-recall"><span>Résultat transmis depuis le simulateur</span><strong>{simulation}</strong><p>Ce repère sera repris lors du premier échange.</p></div>}
-      <form className="contact-form" onSubmit={prepareRequest}>
-        <fieldset className="form-group">
-          <legend><span>01</span> Votre identité</legend>
-          <div className="field"><label htmlFor="name">Nom et prénom du contact *</label><input id="name" name="name" autoComplete="name" required /></div>
-          <div className="field"><label htmlFor="role">Fonction *</label><input id="role" name="role" required /></div>
-          <div className="field"><label htmlFor="email">Adresse électronique professionnelle *</label><input id="email" name="email" type="email" required /></div>
-          <div className="field"><label htmlFor="phone">Numéro de téléphone *</label><input id="phone" name="phone" type="tel" autoComplete="tel" required /></div>
-        </fieldset>
-        <fieldset className="form-group">
-          <legend><span>02</span> L’entité juridique</legend>
-          <div className="field"><label htmlFor="company">Nom de l’entité *</label><input id="company" name="company" autoComplete="organization" required /></div>
-          <div className="field"><label htmlFor="legalForm">Forme juridique *</label><input id="legalForm" name="legalForm" placeholder="Ex. SAS, SARL, association…" required /></div>
-          <div className="field"><label htmlFor="siren">Numéro SIREN *</label><input id="siren" name="siren" inputMode="numeric" pattern="[0-9 ]{9,11}" placeholder="9 chiffres" required /></div>
-          <div className="field"><label htmlFor="siret">SIRET de l’établissement <span>si la demande cible un site précis</span></label><input id="siret" name="siret" inputMode="numeric" pattern="[0-9 ]{14,17}" placeholder="14 chiffres" /></div>
-          <div className="field"><label htmlFor="size">Nombre approximatif de salariés *</label><input id="size" name="size" inputMode="numeric" required /></div>
-          <div className="field"><label htmlFor="entities">Nombre d’entités juridiques *</label><input id="entities" name="entities" inputMode="numeric" required /></div>
-        </fieldset>
-        <fieldset className="form-group form-group-context">
-          <legend><span>03</span> Votre contexte</legend>
-          <div className="field"><label htmlFor="requestType">Objet de la demande *</label><select id="requestType" name="requestType" required defaultValue=""><option value="" disabled>Sélectionner</option><option>Demande de premier échange</option><option>Demande de devis</option><option>Question sur le périmètre PAÏA</option><option>Autre demande professionnelle</option></select></div>
-          <div className="field"><label htmlFor="tools">Outils de paie et de GTA *</label><input id="tools" name="tools" required /></div>
-          <div className="field field-wide"><label htmlFor="problem">Problématique rencontrée *</label><textarea id="problem" name="problem" rows={7} required /></div>
-          <div className="field"><label htmlFor="period">Période concernée *</label><input id="period" name="period" required /></div>
-          <div className="field"><label htmlFor="support">Type d’accompagnement recherché *</label><select id="support" name="support" required defaultValue=""><option value="" disabled>Sélectionner</option><option>État des lieux</option><option>Analyse rétrospective</option><option>Rapprochement et suivi des écarts</option><option>Transfert opérationnel de compétences</option><option>À qualifier lors du premier échange</option></select></div>
-          <div className="field"><label htmlFor="availability">Disponibilité souhaitée *</label><input id="availability" name="availability" placeholder="Ex. matin, après-midi, jours à privilégier" required /></div>
-        </fieldset>
-        <label className="consent"><input type="checkbox" name="consent" required /><span>J’accepte que les informations saisies soient utilisées pour préparer ma demande, conformément à la politique de confidentialité.</span></label>
-        <div className="form-warning"><span aria-hidden="true">!</span><div><strong>Important</strong><p>Ne transmettez aucune donnée médicale, aucun bulletin de paie, aucun arrêt de travail et aucune information personnelle concernant un salarié dans ce formulaire.</p></div></div>
-        <button className="button button-primary" type="submit">Valider mes renseignements <span aria-hidden="true">→</span></button>
-        <p className="form-status">Les renseignements sont préparés localement. La réservation Google sera activée après validation du lien public de prise de rendez-vous.</p>
-      </form>
-      {summary && <section className="request-summary" aria-live="polite"><p className="eyebrow">02 · Transmission et planification</p><h2>Votre demande est prête</h2><p>Relisez le récapitulatif, transmettez-le, puis choisissez un échange de 45 minutes lorsque la page Google Agenda est activée.</p><div className="booking-specs"><span><strong>45 min</strong> d’échange</span><span><strong>15 min</strong> de respiration</span><span><strong>08h–12h</strong> et <strong>14h–17h</strong></span></div><pre>{summary}</pre><div className="summary-actions"><a className="button button-primary" href={mailHref}>Envoyer mes renseignements <span aria-hidden="true">→</span></a><button className="button button-secondary" type="button" onClick={copySummary}>{copied ? "Copié !" : "Copier le récapitulatif"}</button></div>{bookingUrl ? <a className="booking-button" href={bookingUrl} target="_blank" rel="noreferrer">Choisir mon créneau de 45 minutes <span aria-hidden="true">↗</span></a> : <div className="booking-pending"><span aria-hidden="true">◌</span><div><strong>Prise de rendez-vous en préparation</strong><p>Le bouton de réservation sera activé dès que le lien public Google Agenda aura été ajouté.</p></div></div>}</section>}
-    </>
-  );
+  return <>
+    <form className="contact-form qualification-form" onSubmit={prepareRequest}>
+      <div className="form-section-title"><span>01</span><div><strong>Votre besoin</strong><p>Choisissez un service ou décrivez un autre projet.</p></div></div>
+      <div className="field field-wide"><label htmlFor="service">Service recherché *</label><select id="service" name="service" value={service} onChange={e => setService(e.target.value)} required><option value="" disabled>Sélectionner un service</option>{Object.entries(services).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></div>
+      <div className="form-section-title"><span>02</span><div><strong>Votre organisation</strong><p>Les informations nécessaires pour situer le contexte.</p></div></div>
+      <div className="field"><label htmlFor="company">Nom de l’entité *</label><input id="company" name="company" required /></div>
+      <div className="field"><label htmlFor="identifier">SIREN ou SIRET *</label><input id="identifier" name="identifier" required /></div>
+      <div className="field"><label htmlFor="name">Nom et prénom du contact *</label><input id="name" name="name" required /></div>
+      <div className="field"><label htmlFor="role">Fonction *</label><input id="role" name="role" required /></div>
+      <div className="field"><label htmlFor="email">Adresse électronique professionnelle *</label><input id="email" name="email" type="email" required /></div>
+      <div className="field"><label htmlFor="phone">Téléphone *</label><input id="phone" name="phone" type="tel" required /></div>
+      <div className="field"><label htmlFor="size">Effectif concerné *</label><select id="size" name="size" required defaultValue=""><option value="" disabled>Sélectionner</option><option>1 à 49 salariés</option><option>50 à 249 salariés</option><option>250 à 499 salariés</option><option>500 à 999 salariés</option><option>1 000 à 2 499 salariés</option><option>2 500 salariés et plus</option></select></div>
+      <div className="field"><label htmlFor="entities">Nombre d’entités juridiques *</label><input id="entities" name="entities" inputMode="numeric" required /></div>
+      <div className="form-section-title"><span>03</span><div><strong>Votre environnement</strong><p>Renseignez uniquement les outils concernés. « Autre » peut être précisé librement.</p></div></div>
+      {[["paie","Outil de paie"],["gta","Outil de GTA"],["adp","Outil ADP / SIRH"],["recrutement","Outil de recrutement"],["formation","Outil de formation"],["comptabilite","Outil comptable / finance"]].map(([name,label]) => <div className="field" key={name}><label htmlFor={name}>{label}</label><input id={name} name={name} placeholder="Nom de l’outil ou Non concerné" /></div>)}
+      <div className="field field-wide"><label htmlFor="otherTools">Autres outils concernés</label><input id="otherTools" name="otherTools" placeholder="Précisez librement" /></div>
+      <div className="form-section-title"><span>04</span><div><strong>Votre projet</strong><p>Expliquez le besoin, le contexte et le résultat que vous attendez.</p></div></div>
+      <div className="field field-wide"><label htmlFor="project">Description du projet *</label><textarea id="project" name="project" rows={8} required placeholder="Quel est votre besoin ? Quel résultat recherchez-vous ? Quels sont vos délais ou contraintes ?" /></div>
+      <div className="field"><label htmlFor="period">Période ou durée envisagée *</label><input id="period" name="period" required placeholder="Ex. 20 jours, 3 mois, besoin récurrent…" /></div>
+      <div className="field"><label htmlFor="availability">Date de démarrage souhaitée *</label><input id="availability" name="availability" required /></div>
+      <label className="consent field-wide"><input type="checkbox" name="consent" required /><span>J’accepte que ces informations soient utilisées pour étudier ma demande, conformément à la politique de confidentialité.</span></label>
+      <div className="form-warning field-wide"><strong>Confidentialité</strong><p>Ne transmettez aucun bulletin, arrêt de travail, donnée médicale ou information concernant un salarié dans ce formulaire.</p></div>
+      <button className="button button-primary field-wide" type="submit">Préparer ma demande <span aria-hidden="true">↗</span></button>
+    </form>
+    {summary && <section className="request-summary" id="request-summary" aria-live="polite"><p className="eyebrow eyebrow-gold">Demande préparée</p><h2>Votre récapitulatif est prêt</h2><p>Relisez et copiez cette synthèse. Elle permettra de préparer un premier échange, sans constituer un devis ni un engagement de faisabilité.</p><pre>{summary}</pre><button className="button button-gold" type="button" onClick={copySummary}>{copied ? "Récapitulatif copié" : "Copier le récapitulatif"}</button></section>}
+  </>;
 }

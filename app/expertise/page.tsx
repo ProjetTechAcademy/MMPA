@@ -1,105 +1,25 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CtaBand, PageHero, SiteFooter, SiteHeader } from "../components/SiteChrome";
 
-export const metadata: Metadata = { title: "L’expertise PAÏA" };
+export const metadata: Metadata = { title: "Nos services" };
 
-const events = [
-  "Maladie non professionnelle",
-  "Maladie professionnelle",
-  "Accident du travail",
-  "Accident de trajet",
-  "Rechute",
-  "Maternité",
-  "Paternité",
-  "Adoption",
-  "Temps partiel thérapeutique",
-  "Invalidité",
-  "Décès & prévoyance",
+const services = [
+  { acronym: "TAMP", title: "Traitement des absences maladie en paie", intro: "Comprendre et analyser le traitement des absences, de l’événement jusqu’à l’indemnisation.", examples: ["Absences et paie", "DSN événementielle", "IJSS, maintien et subrogation", "Prévoyance et rapprochements"] },
+  { acronym: "PDP", title: "Production de paie", intro: "Répondre à un besoin ponctuel ou récurrent de production selon votre calendrier et votre environnement.", examples: ["Périmètre de paie défini", "Organisation et calendrier", "Outils et données disponibles", "Durée et rythme souhaités"] },
+  { acronym: "TADP", title: "Traitement de l’administration du personnel", intro: "Prendre en charge les opérations d’administration du personnel retenues dans le périmètre.", examples: ["Entrées et sorties", "Contrats et avenants", "Suivi des absences", "Dossiers et échéances administratives"] },
 ];
 
-const controls = [
-  "Cohérence entre les arrêts reçus et les absences enregistrées",
-  "Rapprochement entre paie, GTA, DSN événementielle liée aux arrêts maladie, décomptes d’IJSS et encaissements",
-  "Contrôle du maintien de salaire et de la subrogation",
-  "Identification des remboursements manquants ou incomplets",
-  "Contrôle des régularisations et des mécanismes de prévoyance",
-  "Acquisition et report des congés payés pendant les arrêts maladie ou accident",
-  "Alimentation des compteurs de congés payés",
-  "Traçabilité de l’information remise au salarié après sa reprise",
-  "Identification des besoins de courrier explicatif adressé au salarié",
-];
-
-export default function ExpertisePage() {
-  return (
-    <div className="site-shell">
-      <SiteHeader current="L’expertise PAÏA" />
-      <main>
-        <PageHero
-          eyebrow="L’expertise PAÏA"
-          title="Analyser le traitement complet de l’absence"
-          intro="Une lecture métier qui relie l’événement, les règles applicables, les données, la DSN événementielle liée aux arrêts maladie, les remboursements et leurs conséquences en paie."
-        />
-        <section className="content-section">
-          <div className="content-intro">
-            <p className="eyebrow">Périmètre d’intervention</p>
-            <h2>Les événements concernés</h2>
-            <p>
-              PAÏA peut examiner tout événement directement associé aux absences,
-              à leur indemnisation par la Sécurité sociale ou la prévoyance, et à
-              leur traitement en paie. Cette liste n’est pas exhaustive.
-            </p>
-          </div>
-          <div className="tag-grid">
-            {events.map((event, index) => (
-              <div className="tag-card" key={event}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{event}</strong>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="content-section content-section-tinted">
-          <div className="content-intro">
-            <p className="eyebrow">Lecture croisée</p>
-            <h2>Les contrôles possibles</h2>
-            <p>Le périmètre exact est défini en fonction des enjeux, des outils et des données réellement disponibles.</p>
-          </div>
-          <div className="check-list">
-            {controls.map((control) => (
-              <div key={control}><span aria-hidden="true">✓</span><p>{control}</p></div>
-            ))}
-          </div>
-        </section>
-        <section className="responsibility-note">
-          <p className="eyebrow eyebrow-gold">Responsabilités clairement posées</p>
-          <h2>Identifier et documenter, sans se substituer aux équipes</h2>
-          <p>
-            PAÏA by MMPA identifie, documente et priorise les irrégularités et les
-            corrections nécessaires. Les équipes du client conservent la responsabilité
-            de vérifier l’historique individuel et d’effectuer les corrections dans leurs
-            propres outils.
-          </p>
-        </section>
-        <section className="content-section adjacent-expertise">
-          <div className="content-intro">
-            <p className="eyebrow">Besoins connexes</p>
-            <h2>Un pont possible vers les autres sujets de paie</h2>
-            <p>
-              PAÏA reste centrée sur les absences maladie. Un besoin connexe en paie,
-              administration du personnel, droit social appliqué ou SIRH fonctionnel
-              peut être évoqué au premier échange, puis qualifié séparément.
-            </p>
-          </div>
-          <div className="adjacent-expertise-list">
-            <span>Paie</span>
-            <span>Administration du personnel</span>
-            <span>Droit social appliqué</span>
-            <span>SIRH fonctionnel</span>
-          </div>
-        </section>
-        <CtaBand title="Un écart d’IJSS, de subrogation ou de maintien vous interroge ?" text="Un premier échange permet de qualifier le périmètre et les données nécessaires." label="Parler de votre situation" href="/contact" />
-      </main>
-      <SiteFooter />
-    </div>
-  );
+export default function ServicesPage() {
+  return <div className="site-shell"><SiteHeader current="Nos services" /><main>
+    <PageHero eyebrow="Nos services" title="Trois services, clairement définis" intro="TAMP, PDP et TADP sont proposés au même niveau. Le périmètre exact est ensuite adapté à votre organisation et à votre besoin." />
+    <section className="content-section service-detail-list">
+      {services.map((service, index) => <article className="service-detail" key={service.acronym}>
+        <div className="service-detail-head"><span>0{index + 1}</span><strong>{service.acronym}</strong></div>
+        <div className="service-detail-copy"><h2>{service.title}</h2><p>{service.intro}</p><div className="service-example-list">{service.examples.map(example => <span key={example}>{example}</span>)}</div><Link className="text-link" href={`/contact?service=${service.acronym}`}>Présenter mon besoin <span aria-hidden="true">→</span></Link></div>
+      </article>)}
+    </section>
+    <section className="custom-project"><p className="eyebrow eyebrow-gold">Un autre projet ?</p><h2>Votre besoin ne rentre pas dans une case ?</h2><p>Décrivez librement votre projet, les outils concernés et le résultat attendu. Nous vous indiquerons si PAÏA by MMPA peut y répondre.</p><Link className="button button-gold" href="/contact?service=AUTRE">Décrire mon projet</Link></section>
+    <CtaBand title="Vous savez déjà ce qu’il vous faut ?" text="Passez directement à la qualification de votre demande." label="Commencer ma demande" href="/contact" />
+  </main><SiteFooter /></div>;
 }

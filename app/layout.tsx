@@ -14,19 +14,12 @@ const jetbrains = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
-const indexingEnabled = process.env.NEXT_PUBLIC_SITE_INDEXING === "enabled";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  || (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000");
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
   title: {
-    default: "PAÏA by MMPA — Traitement des Absences Maladie en Paie",
+    default: "PAÏA by MMPA — TAMP, PDP et TADP",
     template: "%s | PAÏA by MMPA",
   },
-  description: "Analyse et sécurisation du traitement des absences maladie en paie : IJSS, subrogation, maintien de salaire, prévoyance et rapprochement des données.",
+  description: "PAÏA by MMPA propose trois services : traitement des absences maladie en paie, production de paie et traitement de l’administration du personnel.",
   keywords: [
     "traitement des absences maladie en paie",
     "contrôle IJSS",
@@ -45,9 +38,6 @@ export const metadata: Metadata = {
     icon: "/brand/favicon.png",
     apple: "/brand/apple-touch-icon.png",
   },
-  robots: indexingEnabled
-    ? { index: true, follow: true }
-    : { index: false, follow: false, nocache: true },
   other: { "codex-preview": "development" },
 };
 

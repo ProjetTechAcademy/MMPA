@@ -1,18 +1,16 @@
-# PAÏA by MMPA — version GitHub et Vercel
+# PAÏA by MMPA
 
 Site vitrine de PAÏA by MMPA — Paie · Absences · Indemnisation · Analyse.
 
-Cette archive est la version Next.js native destinée à GitHub et Vercel. Elle
-ne dépend pas des fichiers techniques `.openai/hosting.json`, Vinext, Vite,
-Wrangler ou Cloudflare utilisés uniquement par l’environnement d’aperçu.
-
-Elle contient notamment :
+Cette version complète est préparée pour le dépôt GitHub
+`ProjetTechAcademy/MMPA` et pour Vercel. Elle contient notamment le dossier
+`app`, indispensable au fonctionnement de Next.js :
 
 - la page d’accueil éditoriale ;
 - les pages Expertise, Méthode, Livrables et À propos ;
 - le simulateur de besoin sans affichage de tarifs ;
 - le formulaire de préparation du premier échange ;
-- les mentions légales, les pages RGPD et les en-têtes de sécurité ;
+- les mentions légales et la politique de confidentialité ;
 - les logos et éléments graphiques officiels PAÏA fournis par Mathilde Martine PAISLEY.
 
 ## Démarrage local
@@ -33,44 +31,40 @@ npm run build
 npm start
 ```
 
-## Remplacement du dépôt avec GitHub Desktop
+## Mise sur GitHub
 
 1. Décompresser cette archive sur l’ordinateur.
-2. Ouvrir avec GitHub Desktop le dossier local du dépôt
-   `ProjetTechAcademy/MMPA`.
-3. Supprimer l’ancien contenu du dossier local, sans supprimer son dossier
-   caché `.git`.
-4. Copier à la racine du dépôt tout le contenu de cette archive. Les dossiers
-   `app` et `public` doivent être au même niveau que `package.json`.
-5. Il est préférable de supprimer les anciens fichiers `vite.config.ts`,
-   `.openai`, `worker`, `build`, `db`, `drizzle`, `examples` et les scripts
-   Vinext. Toutefois, le `tsconfig.json` fourni ignore désormais ces anciens
-   fichiers : ils ne bloqueront plus Vercel si Finder les laisse en place.
-6. Valider (commit) puis publier (push) les modifications sur `main`.
+2. Vérifier que les dossiers `app` et `public` sont visibles à côté de
+   `package.json`.
+3. Envoyer le contenu du dossier décompressé vers le dépôt
+   `ProjetTechAcademy/MMPA`. Ne pas envoyer seulement le fichier ZIP.
+4. Depuis le dossier décompressé, la méthode Terminal est :
 
-Ne pas déposer le fichier ZIP lui-même dans GitHub : il faut déposer son
-contenu décompressé.
+```bash
+git init
+git add .
+git commit -m "Création du site PAÏA by MMPA"
+git branch -M main
+git remote add origin https://github.com/ProjetTechAcademy/MMPA.git
+git push -u origin main
+```
 
 ## Déploiement sur Vercel
 
-1. Dans Vercel, ouvrir le projet déjà relié au dépôt GitHub.
-2. Laisser Vercel détecter **Next.js**.
-3. Le **répertoire racine** doit rester vide ou sur `./` : Vercel doit voir
+1. Dans Vercel, choisir **Add New > Project**.
+2. Importer le dépôt GitHub `ProjetTechAcademy/MMPA`.
+3. Laisser Vercel détecter **Next.js**.
+4. Laisser le **répertoire racine** vide ou sur `./` : Vercel doit voir
    `app` et `package.json` au même niveau.
-4. Le script exécuté doit être `next build`, et non `vinext build`.
 5. Aucune variable d’environnement n’est obligatoire pour le premier
-   déploiement.
+   déploiement. La variable facultative `NEXT_PUBLIC_SITE_URL` pourra être
+   ajoutée avec l’adresse publique finale du site.
+6. Cliquer sur **Deploy**.
 
-Le push sur `main` lance normalement un nouveau déploiement. Dans
-**Settings > Build & Deployment**, supprimer toute commande personnalisée
-Vinext/Vite et conserver les valeurs détectées par Vercel.
+Les modifications poussées ensuite sur la branche `main` pourront déclencher automatiquement un nouveau déploiement Vercel.
 
 ## Important
 
-Les fichiers présents dans `public/brand` sont les éléments graphiques
-officiels. Ils ne doivent pas être redessinés, déformés, recolorés ou
-recomposés.
+Les fichiers présents dans `public/brand` sont les éléments graphiques officiels. Ils ne doivent pas être redessinés, déformés, recolorés ou recomposés.
 
-Le formulaire actuel prépare un récapitulatif localement. Il n’envoie aucune
-donnée vers une boîte mail ou un CRM tant qu’un service de destination n’a pas
-été configuré.
+Le formulaire actuel prépare un récapitulatif localement. Il n’envoie aucune donnée vers une boîte mail ou un CRM tant qu’un service de destination n’a pas été configuré.
