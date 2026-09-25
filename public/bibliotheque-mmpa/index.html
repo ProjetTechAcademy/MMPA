@@ -44,7 +44,7 @@ main{padding-bottom:70px}
 .filters-top{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:18px}
 .filters-top h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:34px;margin:3px 0 0}
 .count{font-size:13px;color:var(--muted)}
-.controls{display:grid;grid-template-columns:minmax(280px,1.4fr) minmax(180px,.8fr) minmax(180px,.8fr);gap:10px}
+.controls{display:grid;grid-template-columns:minmax(280px,1.35fr) repeat(4,minmax(150px,.72fr));gap:10px}
 .search-wrap{position:relative}
 .search-wrap:before{content:"⌕";position:absolute;left:14px;top:12px;font-size:21px;color:#6d6861}
 input,select{width:100%;height:48px;border:1px solid #cbb985;background:#fffdf8;border-radius:4px;padding:0 14px;color:var(--ink);outline:none}
@@ -66,6 +66,7 @@ input:focus,select:focus{border-color:#777}
 .pager button{border:0;background:transparent;text-decoration:underline;cursor:pointer}
 .pager button:disabled{opacity:.3;cursor:not-allowed}
 footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:12px}
+@media(max-width:1180px){.controls{grid-template-columns:1fr 1fr 1fr}.search-wrap{grid-column:1/-1}}
 @media(max-width:980px){.hero{grid-template-columns:1fr}.hero-aside{border-left:0;border-top:1px solid var(--line);padding:22px 0 0}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.shell{padding:0 16px}.controls{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.hero{padding-top:38px}.path-grid{grid-template-columns:1fr 1fr}.header-inner{height:68px}.brand{font-size:12px}}
 @media(max-width:470px){.path-grid{grid-template-columns:1fr}}
@@ -110,7 +111,9 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
     <div class="count" id="topCount"></div>
   </div>
   <div class="controls">
-    <div class="search-wrap"><input id="q" type="search" placeholder="Rechercher un cours"></div>
+    <div class="search-wrap"><input id="q" type="search" placeholder="Rechercher : B2_M04_V003 ou un titre"></div>
+    <select id="bloc"><option value="">Tous les blocs</option></select>
+    <select id="module"><option value="">Tous les modules</option></select>
     <select id="matiere"><option value="">Toutes les matières</option></select>
     <select id="format"><option value="">Tous les formats</option></select>
   </div>
@@ -137,17 +140,86 @@ let DB,page=1,selectedParcours="";
 const PAGE=18,$=s=>document.querySelector(s);
 const uniq=a=>[...new Set(a.filter(Boolean))].sort((a,b)=>a.localeCompare(b,"fr"));
 function fill(sel,vals){sel.innerHTML=sel.options[0].outerHTML+vals.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("")}
-function current(){
- const q=$("#q").value.trim().toLowerCase(),m=$("#matiere").value,f=$("#format").value;
- return DB.resources.filter(r=>{
-   const hay=[r.name,r.parcours,r.matiere,r.module,r.theme,r.type].join(" ").toLowerCase();
-   return(!selectedParcours||r.parcours===selectedParcours)&&(!q||hay.includes(q))&&(!m||r.matiere===m)&&(!f||typeLabel(r.type)===f);
+function fillEntries(sel,entries){
+ const first=sel.options[0].outerHTML;
+ sel.innerHTML=first+entries.map(e=>`<option value="${esc(e.value)}">${esc(e.label)}</option>`).join("");
+}
+function resourcePrefix(r){
+ const t=typeLabel(r.type);
+ if(t==="Vidéo") return "V";
+ if(t==="Quiz") return "Q";
+ if(t==="PDF et documents") return "F";
+ return "L";
+}
+function indexCodes(){
+ const blockMaps=new Map(), moduleMaps=new Map(), counters=new Map();
+ DB.resources.forEach(r=>{
+   if(!blockMaps.has(r.parcours)) blockMaps.set(r.parcours,new Map());
+   const bm=blockMaps.get(r.parcours);
+   if(!bm.has(r.matiere)) bm.set(r.matiere,bm.size);
+   r.blockCode="B"+bm.get(r.matiere);
+
+   const moduleKey=r.parcours+"|||"+r.matiere;
+   if(!moduleMaps.has(moduleKey)) moduleMaps.set(moduleKey,new Map());
+   const mm=moduleMaps.get(moduleKey);
+   if(!mm.has(r.module)) mm.set(r.module,mm.size+1);
+   r.moduleCode="M"+String(mm.get(r.module)).padStart(2,"0");
+
+   const prefix=resourcePrefix(r);
+   const resourceKey=[r.parcours,r.matiere,r.module,prefix].join("|||");
+   const n=(counters.get(resourceKey)||0)+1;
+   counters.set(resourceKey,n);
+   r.resourceCode=prefix+String(n).padStart(3,"0");
+   r.fullCode=r.blockCode+"_"+r.moduleCode+"_"+r.resourceCode;
  });
 }
+function current(){
+ const q=$("#q").value.trim().toLowerCase(),
+       b=$("#bloc").value,
+       mo=$("#module").value,
+       m=$("#matiere").value,
+       f=$("#format").value;
+ return DB.resources.filter(r=>{
+   const hay=[r.fullCode,r.blockCode,r.moduleCode,r.resourceCode,r.name,r.parcours,r.matiere,r.module,r.theme,r.type].join(" ").toLowerCase();
+   return(!selectedParcours||r.parcours===selectedParcours)&&
+         (!q||hay.includes(q))&&
+         (!b||r.blockCode===b)&&
+         (!mo||r.moduleCode===mo)&&
+         (!m||r.matiere===m)&&
+         (!f||typeLabel(r.type)===f);
+ });
+}
+function updateModuleFilter(){
+ const pool=selectedParcours ? DB.resources.filter(r=>r.parcours===selectedParcours) : [];
+ const b=$("#bloc").value;
+ const modulePool=b ? pool.filter(r=>r.blockCode===b) : [];
+ const seen=new Set(), entries=[];
+ modulePool.forEach(r=>{
+   if(!seen.has(r.moduleCode)){
+     seen.add(r.moduleCode);
+     entries.push({value:r.moduleCode,label:`${r.moduleCode} — ${r.module||"Module"}`});
+   }
+ });
+ fillEntries($("#module"),entries);
+}
 function updateScopedFilters(){
- const pool=selectedParcours ? DB.resources.filter(r=>r.parcours===selectedParcours) : DB.resources;
- fill($("#matiere"),uniq(pool.map(r=>r.matiere)));
- fill($("#format"),uniq(pool.map(r=>typeLabel(r.type))));
+ const pool=selectedParcours ? DB.resources.filter(r=>r.parcours===selectedParcours) : [];
+ if(!selectedParcours){
+   $("#bloc").innerHTML='<option value="">Choisir d’abord un parcours</option>';
+   $("#module").innerHTML='<option value="">Choisir d’abord un bloc</option>';
+ }else{
+   const seenB=new Set(), blocks=[];
+   pool.forEach(r=>{
+     if(!seenB.has(r.blockCode)){
+       seenB.add(r.blockCode);
+       blocks.push({value:r.blockCode,label:`${r.blockCode} — ${r.matiere||"Bloc"}`});
+     }
+   });
+   fillEntries($("#bloc"),blocks);
+   $("#module").innerHTML='<option value="">Tous les modules</option>';
+ }
+ fill($("#matiere"),uniq((selectedParcours?pool:DB.resources).map(r=>r.matiere)));
+ fill($("#format"),uniq((selectedParcours?pool:DB.resources).map(r=>typeLabel(r.type))));
 }
 function updateSelectedBand(){
  const band=$("#selectedBand");
@@ -166,6 +238,8 @@ function renderPaths(){
  document.querySelectorAll(".path-card").forEach(c=>c.onclick=()=>{
    selectedParcours=c.dataset.p;
    $("#q").value="";
+   $("#bloc").value="";
+   $("#module").value="";
    $("#matiere").value="";
    $("#format").value="";
    page=1;
@@ -183,21 +257,25 @@ function render(){
  $("#resultCount").textContent=`${rows.length.toLocaleString("fr-FR")} ressources`;
  $("#cards").innerHTML=shown.map((r,i)=>{
   const u=(r.urls||[])[0],action=u?`<a class="btn" target="_blank" rel="noopener" href="${esc(u)}">${typeLabel(r.type)==="Vidéo"?"Voir la ressource":"Lire le cours"} ↗</a>`:"";
-  return `<article class="card"><div class="type">${esc(typeLabel(r.type))} &nbsp; ${String(start+i+1).padStart(2,"0")}</div><h3>${esc(r.name)}</h3><div class="meta"><b>${esc(r.matiere)}</b>${r.module?` · ${esc(r.module)}`:""}${r.theme?`<br>${esc(r.theme)}`:""}</div><div class="actions">${action}</div></article>`;
+  return `<article class="card"><div class="type">${esc(typeLabel(r.type))}</div><h3>${esc(r.fullCode)} - ${esc(r.name)}</h3><div class="meta"><b>${esc(r.blockCode)} · ${esc(r.matiere)}</b>${r.module?`<br>${esc(r.moduleCode)} · ${esc(r.module)}`:""}${r.theme?`<br>${esc(r.theme)}`:""}</div><div class="actions">${action}</div></article>`;
  }).join("");
  $("#empty").hidden=rows.length!==0;$("#prev").disabled=page<=1;$("#next").disabled=page>=pages;$("#pageLabel").textContent=`${page} / ${pages}`;
 }
 loadDB().then(db=>{
  DB=db;
+ indexCodes();
  $("#exploreCount").textContent=`${DB.parcours.filter(p=>p.count>0).length} parcours · ${DB.resources.length.toLocaleString("fr-FR")} ressources à explorer`;
  updateScopedFilters();
  renderPaths();updateSelectedBand();render();
- ["q","matiere","format"].forEach(id=>$("#"+id).addEventListener(id==="q"?"input":"change",()=>{page=1;render()}));
+ ["q","module","matiere","format"].forEach(id=>$("#"+id).addEventListener(id==="q"?"input":"change",()=>{page=1;render()}));
+ $("#bloc").addEventListener("change",()=>{page=1;$("#module").value="";updateModuleFilter();render()});
  $("#prev").onclick=()=>{if(page>1){page--;render()}};
  $("#next").onclick=()=>{if(page<Math.ceil(current().length/PAGE)){page++;render()}};
  $("#resetParcours").onclick=()=>{
    selectedParcours="";
    $("#q").value="";
+   $("#bloc").value="";
+   $("#module").value="";
    $("#matiere").value="";
    $("#format").value="";
    page=1;
